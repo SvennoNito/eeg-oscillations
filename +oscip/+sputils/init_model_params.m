@@ -71,6 +71,9 @@ model.ap_percentile_thresh = 0.025; % Percentile for selecting points for aperio
 
 model.ap_guess = [nan, 0, nan]; % [offset, knee, exponent]. if Offset guess is nan, the first value of powerspectrum is used as offset guess. If exponent is nan, the abs(log-log Exponent) of first and last points is used
 model.ap_bounds = [-inf, -inf, -inf; inf, inf, inf]; % bounds for aperiodic fitting (offsetlow, knee low, exp low; offset high, knee high, exp high). By default unbounded
+% if strcmp(model.aperiodic_mode, 'knee')
+%      model.ap_bounds = [-inf, 0, -inf; inf, inf, inf];
+% end
 model.bw_std_edge = 1; % how far a peak needs t obe to be dropped, defined in untis of gaussian standard deviation % TODO: make it a user option
 model.gauss_overlap_thresh = 0.75; % degree of overlap between guassians for one to be dropped, in units of standard deviations  % TODO make user option
 model.cf_bound = 1.5; % Bounds for center frequency when fitting gaussians

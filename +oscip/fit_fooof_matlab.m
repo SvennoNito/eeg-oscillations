@@ -1,4 +1,4 @@
-function [Exponent, Offset, FrequenciesPeriodic, PeriodicPeaks, PeriodicPower, Error, RSquared] ...
+function [Exponent, Offset, FrequenciesPeriodic, PeriodicPeaks, PeriodicPower, Error, RSquared, Knee] ...
     = fit_fooof_matlab(Power, Frequencies, FittingFrequencyRange, AdditionalParameters)
 % FooofModel = fit_fooof(Power, Frequencies, FittingFrequencyRange, AdditionalParameters)
 % Fits the fooof model to determine spectral parameters. This is script is little
@@ -48,7 +48,12 @@ try % since it can be finicky, better to use a try/catch statement
     % set up outputs
     FrequenciesPeriodic = FooofModel.freqs;
     Offset = FooofModel.aperiodic_params(1);
-    Exponent = FooofModel.aperiodic_params(2);
+    Knee   = nan;
+    Exponent = FooofModel.aperiodic_params(end);
+    if strcmp(FooofModel.aperiodic_mode, 'knee') & FooofModel.aperiodic_params(2) > 0
+        Knee        = exp(FooofModel.aperiodic_params(2)); 
+        Knee        = Knee^(1/Exponent);
+    end
     PeriodicPeaks = FooofModel.peak_params;
     PeriodicPower = FooofModel.power_spectrum-FooofModel.ap_fit;
 catch
