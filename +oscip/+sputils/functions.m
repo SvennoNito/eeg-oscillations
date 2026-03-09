@@ -10,7 +10,8 @@ switch FunctionType
 
             case 'knee'
                     % Knee mode: offset - log10(knee + freqs^exponent)
-                Function = @(params, x) params(1) - log10(params(2) + x.^params(3));
+                Function = @(p,x) p(1) - log10( exp(p(2)) + x.^p(3) );
+                % Function = @(params, x) params(1) - log10(params(2) + x.^params(3));
             otherwise
                 error('incorrect function mode')
         end

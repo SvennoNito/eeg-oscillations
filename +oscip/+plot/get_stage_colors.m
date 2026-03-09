@@ -1,6 +1,6 @@
 function Colors = get_stage_colors(ScoringIndexes)
 
-Indexes = [-3 -2 -1 0 1 2]'; % N3, N2, N1, W, R
+Indexes = [3 2 1 0 5]'; % N3, N2, N1, W, R
 
 ColorOptions = ...
     [0.6419    0.4522    0.7243
