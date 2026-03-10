@@ -24,10 +24,10 @@ disp('Computing power on all epochs')
 
 % set up epoch information
 [nChannels, nTimepoints] = size(Data);
-ScoringTime = round(1:EpochLength*SampleRate:nTimepoints); % rounded so it can be indexes
-Starts = ScoringTime(1:end-1);
-Ends = ScoringTime(2:end)-1;
-nEpochs = numel(Starts);
+samplesPerEpoch = EpochLength * SampleRate;
+nEpochs = floor(nTimepoints / samplesPerEpoch);
+Starts = (0:nEpochs-1) * samplesPerEpoch + 1;
+Ends = Starts + samplesPerEpoch - 1;
 
 [Frequencies, nFrequencies] = oscip.utils.expected_frequencies(WelchWindowLength, SampleRate, RoundToPower2);
 
